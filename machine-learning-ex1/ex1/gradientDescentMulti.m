@@ -18,12 +18,13 @@ for iter = 1:num_iters
     %
 
 
+    n = length(theta);
+    h = X * theta;
+    err = h - y;
+    err_n = repmat(err,1,n);    
+    gradients = sum(err_n .* X);
 
-
-
-
-
-
+    theta = theta - ((alpha / m) * gradients');
 
 
 
