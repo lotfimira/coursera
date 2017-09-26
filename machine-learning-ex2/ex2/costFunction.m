@@ -20,12 +20,17 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+z = X * theta;
+h = sigmoid(z);
+costs =  (-y .* log(h)) - ((1 - y) .* log(1 - h));
+J = sum(costs) / m; 
 
 
-
-
-
-
+err = (h - y);
+n = length(theta);
+err_n = repmat(err, 1, n);
+grads = err_n .* X;
+grad = sum(grads) / m;
 
 % =============================================================
 
