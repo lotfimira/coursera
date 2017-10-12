@@ -37,11 +37,21 @@ grad = zeros(size(theta));
 %
 
 
+z = X * theta;
+h = sigmoid(z);
+costs =  (-y .* log(h)) - ((1 - y) .* log(1 - h));
+theta_without_t0 = theta;
+theta_without_t0(1,1) = 0;
+reg_cost = (lambda / (2 * m)) * sum(theta_without_t0.^2);
+J = (sum(costs) / m) + reg_cost; 
 
-
-
-
-
+err = (h - y);
+n = length(theta);
+err_n = repmat(err, 1, n);
+grads = err_n .* X;
+reg_grads = (lambda / m) * theta;
+reg_grads(1,1) = 0;
+grad = (sum(grads) / m) + reg_grads';
 
 
 
