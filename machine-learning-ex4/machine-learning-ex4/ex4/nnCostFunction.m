@@ -41,10 +41,10 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 % Add ones to the X data matrix
-X = [ones(m, 1) X];
+a1 = [ones(m, 1) X];
 
 % compute output of the hidden layer
-h_hidden = sigmoid(X * Theta1');
+h_hidden = sigmoid(a1 * Theta1');
 
 % Add ones to the output of hidden layer
 h_hidden = [ones(m, 1) h_hidden];
@@ -77,10 +77,36 @@ J = sum(sum(costs)) / m;
 %               first time.
 %
 
+DELTA_2 = zeros(size(Theta2));
+DELTA_1 = zeros(size(Theta1));
 
+% for each example
+for t = 1:m
+    
+    % forward propagation 
+    a1 = [1 X(t,:) ]'; % add 1 for the bias
+    z2 = Theta1 * a1;
+    a2 = [1; sigmoid(z2)]; % add 1 for the bias
+    z3 = Theta2 * a2;
+    a3 = sigmoid(z3);
+    
+    % error of output layer
+    y3 = y_bool(t,:)';
+    delta_3 = a3 - y3;
+    
+    % error of hidden layer
+    delta_2 = Theta2' * delta_3;
+    delta_2 = delta_2(2:end); % remove unused error on bias
+    delta_2 = delta_2 .* sigmoidGradient(z2);
+    
+    % accumulate gradient
+    DELTA_2 = DELTA_2 + delta_3 * a2';
+    DELTA_1 = DELTA_1 + delta_2 * a1';
+    
+end
 
-
-
+Theta2_grad = DELTA_2 / m;
+Theta1_grad = DELTA_1 / m;
 
 % Part 3: Implement regularization with the cost function and gradients.
 %
