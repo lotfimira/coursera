@@ -62,9 +62,25 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Add ones to the X data matrix
+X = [ones(m, 1) X];
 
+% compute output of the hidden layer
+h_hidden = sigmoid(X * Theta1');
 
+% Add ones to the output of hidden layer
+h_hidden = [ones(m, 1) h_hidden];
 
+% compute output of last layer
+h = sigmoid(h_hidden * Theta2');
+
+% convert y into boolean vectors of length K
+encoder = 1:num_labels;
+y_bool = (y == encoder);
+
+% compute cost
+costs =  (-y_bool .* log(h)) - ((1 - y_bool) .* log(1 - h));
+J = sum(sum(costs)) / m;
 
 
 
