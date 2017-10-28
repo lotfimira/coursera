@@ -82,11 +82,16 @@ y_bool = (y == encoder);
 costs =  (-y_bool .* log(h)) - ((1 - y_bool) .* log(1 - h));
 J = sum(sum(costs)) / m;
 
+% regularization term
+theta1_without_bias = Theta1(:, 2:end);
+theta2_without_bias = Theta2(:, 2:end);
 
+reg = 0;
+reg = reg + sum(sum((theta1_without_bias .^ 2)));
+reg = reg + sum(sum((theta2_without_bias .^ 2)));
+reg = reg * (lambda / (2 * m));
 
-
-
-
+J = J + reg;
 
 
 
