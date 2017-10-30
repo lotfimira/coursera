@@ -116,7 +116,7 @@ Theta1_grad = DELTA_1 / m;
 %               and Theta2_grad from Part 2.
 %
 
-% regularization term
+% regularization term on cost
 theta1_without_bias = Theta1(:, 2:end);
 theta2_without_bias = Theta2(:, 2:end);
 
@@ -128,11 +128,13 @@ reg = reg * (lambda / (2 * m));
 J = J + reg;
 
 
+% regularization of gradient
 
+theta1_grad_reg = theta1_without_bias .* (lambda / m);
+theta2_grad_reg = theta2_without_bias .* (lambda / m);
 
-
-
-
+Theta1_grad = Theta1_grad + [zeros(size(theta1_grad_reg,1),1) theta1_grad_reg];
+Theta2_grad = Theta2_grad + [zeros(size(theta2_grad_reg,1),1) theta2_grad_reg];
 
 
 % -------------------------------------------------------------
