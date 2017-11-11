@@ -60,7 +60,6 @@ for i = 1:m
     % X(1:i, :) and y(1:i), storing the result in 
     % error_train(i) and error_val(i)
     
-    lambda = 0;
     Xtrain = [ones(i, 1) X(1:i, :)];
     ytrain = y(1:i);
     [theta] = trainLinearReg(Xtrain, ytrain, lambda);

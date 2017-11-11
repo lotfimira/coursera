@@ -35,7 +35,7 @@ J = J + reg;
 err = h - y;
 n = size(theta,1);
 err_n = repmat(err,1,n);    
-grad = (sum(err_n .* X)) / m;
+grad = (sum(err_n .* X, 1)) / m;
 grad = grad(:);
 
 reg_grad = (lambda / m) * theta_without_0;
