@@ -218,3 +218,13 @@ end
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
+
+%% =========== Part 9: Compute test error =============
+X_poly_test = polyFeatures(Xtest, p);
+X_poly_test = bsxfun(@minus, X_poly_test, mu);
+X_poly_test = bsxfun(@rdivide, X_poly_test, sigma);
+X_poly_test = [ones(size(X_poly_test, 1), 1), X_poly_test];    
+
+test_error = computeTestError(X_poly, y, X_poly_test, ytest, 3);
+fprintf('Test error: %f\n', test_error);
