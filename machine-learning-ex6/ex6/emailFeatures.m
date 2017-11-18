@@ -48,12 +48,19 @@ x = zeros(n, 1);
 %
 %
 
+m = length(word_indices);
 
+for(i = 1 : m)
 
+  index = word_indices(i);
+  
+  if(index >= 1 && index <= n)
+    x(index) = 1;
+  else
+    fprintf("OUT OF BOUND %f (max %f)\n", index, n);
+  end
 
-
-
-
+end
 
 % =========================================================================
     
