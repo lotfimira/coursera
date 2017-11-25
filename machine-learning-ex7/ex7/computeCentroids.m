@@ -34,7 +34,9 @@ total = sum(X .* bin_vector, 1);
 
 count = sum(bin_vector, 1);
 
-centroid(k,:) = total ./ count;
+avg_point = total ./ count;
+
+centroids(k,:) = avg_point;
 
 end
 
