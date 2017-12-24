@@ -42,12 +42,12 @@ Theta_grad = zeros(size(Theta));
 
 
 f = X * Theta';
-err = f .- Y;
+err = (f .- Y) .* R;
 squared_err = err .^2;
-valid_err = squared_err .* R;
-J = sum(sum(valid_err)) / 2.0;
+J = sum(sum(squared_err)) / 2.0;
 
-
+X_grad = err * Theta;
+Theta_grad = err' * X;
 
 
 
