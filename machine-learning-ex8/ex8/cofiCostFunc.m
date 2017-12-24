@@ -46,20 +46,19 @@ err = (f .- Y) .* R;
 squared_err = err .^2;
 J = sum(sum(squared_err)) / 2.0;
 
-reg_theta = sum(sum(Theta .^2)) * (lambda / 2.0);
-reg_X = sum(sum(X .^2)) * (lambda / 2.0);
+reg_cost_theta = sum(sum(Theta .^2)) * (lambda / 2.0);
+reg_cost_X = sum(sum(X .^2)) * (lambda / 2.0);
 
-J = J + reg_theta + reg_X;
+J = J + reg_cost_theta + reg_cost_X;
 
 X_grad = err * Theta;
 Theta_grad = err' * X;
 
+reg_grad_theta = Theta .* lambda;
+reg_grad_X = X .* lambda;
 
-
-
-
-
-
+Theta_grad = Theta_grad + reg_grad_theta;
+X_grad = X_grad + reg_grad_X;
 
 
 
